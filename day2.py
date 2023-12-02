@@ -23,7 +23,7 @@ def power(line):
 
 
 def input2():
-    with open(r"C:\Users\USER\PycharmProjects\AOC2023\input2.txt", 'r') as file:
+    with open(r"AOC2023\input2.txt", 'r') as file:
         input_data = [line.strip() for line in file]
 
     in1 = {game.split(r':')[0].split()[1]: game.split(r':')[1].replace(';', ',').split(',') for game in input_data}

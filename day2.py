@@ -1,19 +1,15 @@
+from functools import reduce
+
 def part1(in2):
-    # max 12 red, 13 green, 14 blue
-    # {Game id : list with color and amount}
     return sum(int(game) for game, line in in2.items() if check(line))
 
 
 def check(line):
-    # line is "[color number]
     for elem in line:
-        l = elem.split()
-        if l[1] == 'red' and int(l[0]) > 12:
-            return False
-        elif l[1] == 'green' and int(l[0]) > 13:
-            return False
-        elif l[1] == 'blue' and int(l[0]) > 14:
-            return False
+        lne = elem.split()
+        for col, color in zip(['red', 'green', 'blue'], [12, 13, 14]):
+            if lne[1] == col and int(lne[0]) > color:
+                return False
     return True
 
 
@@ -22,23 +18,15 @@ def part2(in2):
 
 
 def power(line):
-    red = max(int(item.split()[0]) for item in line if item.split()[1] == 'red')
-    green = max(int(item.split()[0]) for item in line if item.split()[1] == 'green')
-    blue = max(int(item.split()[0]) for item in line if item.split()[1] == 'blue')
-    return red * green * blue
+    return reduce(lambda x, color: x * max(int(item.split()[0]) for item in line if item.split()[1] == color),
+                  ['red', 'green', 'blue'], 1)
 
 
 def input2():
-    file_path = r"input2.txt"
-
-    input_data = []
-
-    with open(file_path, 'r') as file:
-        for line in file:
-            input_data.append(line.strip())
+    with open(r"C:\Users\USER\PycharmProjects\AOC2023\input2.txt", 'r') as file:
+        input_data = [line.strip() for line in file]
 
     in1 = {game.split(r':')[0].split()[1]: game.split(r':')[1].replace(';', ',').split(',') for game in input_data}
-    # {Game id : list with color and amount}
     return in1
 
 

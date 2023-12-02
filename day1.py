@@ -24,11 +24,10 @@ def convert_numb(line):
         while index != -1:
             order.append((index, n, d))
             index = line.find(n, index + 1)
-    order = sorted(order, key=lambda x: x[0])
     new_line = ''
-    for i in range(len(line)):
-        if line[i].isdigit():
-            new_line += line[i]
+    for i, char in enumerate(line):
+        if char.isdigit():
+            new_line += char
         else:
             for index, _, digit in order:
                 if i == index:
@@ -44,7 +43,7 @@ def part2(in2):
 
 
 def input1():
-    file_path = "input"
+    file_path = r"input1"
 
     input_data = []
 

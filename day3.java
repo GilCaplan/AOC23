@@ -69,7 +69,7 @@ public class Main {
 
 
     public static char[][] getInput() throws FileNotFoundException {
-        var reader = new Scanner(new File("C:\\Users\\USER\\IdeaProjects\\Advent2023\\src\\input3.txt"));
+        var reader = new Scanner(new File("input3.txt"));
         var list = new ArrayList<String>();
         while (reader.hasNextLine())
             list.add(reader.nextLine());

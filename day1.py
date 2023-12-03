@@ -2,9 +2,9 @@ def part1(in1):
     sum1 = 0
     for line in in1:
         first = get_digit(line)
-        last = get_digit(line[::-1]) if first is not None else None
+        last = get_digit(line[::-1])
         if last is not None:
-            sum1 += int(str(first) + str(last))
+            sum1 += int(first) * 10 + int(last)
     return sum1
 
 
@@ -37,19 +37,12 @@ def convert_numb(line):
 
 
 def part2(in2):
-    for i in range(len(in2)):
-        in2[i] = convert_numb(in2[i])
-    return part1(in2)
+    return part1([convert_numb(elem) for elem in in2])
 
 
-def input1():
-    file_path = r"input1"
-
-    input_data = []
-
-    with open(file_path, 'r') as file:
-        for line in file:
-            input_data.append(line.strip())
+def input1():    
+    with open(r"AOC2023\input1", 'r') as file:
+        input_data = [line.strip() for line in file]
 
     return input_data
 

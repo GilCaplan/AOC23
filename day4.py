@@ -6,7 +6,7 @@ for i, line in enumerate(puzzle_input):
     left, right = line.split(':')[1].split('|')
     left_list, right_list = [list(map(int, x.strip().split())) for x in (left, right)]
     sum1 = sum(1 for elem in right_list if elem in left_list)
-    total += 2 ** (sum1-1) if sum1 > 0 else 0
+    total += (1 << sum1) >> 1 if sum1 > 0 else 0
 
     for j in range(sum(1 for elem in right_list if elem in left_list)):
         if i + j + 1 < len(puzzle_input):

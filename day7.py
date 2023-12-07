@@ -6,7 +6,7 @@ value2 = dict(zip('J23456789TQKA', range(13)))
 
 def get_input():
     inp = list()
-    with open("C:\\Users\\USER\\PycharmProjects\\AOC2023\\input7.txt", "r") as file:
+    with open("input7.txt", "r") as file:
         for line in file:
             hand, bid = line.strip().split()
             inp.append((hand, int(bid)))
@@ -20,7 +20,7 @@ def sort_hands(input_hands, part1):
             hands.append([sorted([num for _, num in Counter(hand[0]).most_common()], reverse=True), [value[card] for card in hand[0]], [hand[1]]])
         else:
             if hand[0] == 'JJJJJ':
-                hands.append([[[5]], [1, 1, 1, 1, 1], [hand[1]]])
+                hands.append([[[5]], [0, 0, 0, 0, 0], [hand[1]]])
             else:
                 cnt = Counter(hand[0]).most_common()
                 rmv = next((i for i, (card, count) in enumerate(cnt) if card == 'J'), None)
@@ -60,4 +60,3 @@ def sort_hands(input_hands, part1):
 inp = get_input()
 print(sum((i+1)*bid for i, [_, [bid]] in enumerate(sort_hands(inp, True))))
 print(sum((i+1)*bid for i, [_, [bid]] in enumerate(sort_hands(inp, False))))
-

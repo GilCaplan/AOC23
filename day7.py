@@ -17,7 +17,6 @@ def sort_hands(input_hands, part1):
     hands = []
     for hand in input_hands:
         if part1:
-            jkr=0
             hands.append([sorted([num for _, num in Counter(hand[0]).most_common()], reverse=True), [value[card] for card in hand[0]], [hand[1]]])
         else:
             if hand[0] == 'JJJJJ':
@@ -26,9 +25,11 @@ def sort_hands(input_hands, part1):
                 cnt = Counter(hand[0]).most_common()
                 rmv = next((i for i, (card, count) in enumerate(cnt) if card == 'J'), None)
                 jkr = cnt.pop(rmv)[1] if rmv is not None else 0
+                cnt[0] = (cnt[0][0], cnt[0][1] + jkr)
                 srt = sorted([num for _, num in cnt], reverse=True)
                 hands.append([srt, [value2[card] for card in list(hand[0])], [hand[1]]])
-    hands = sorted(hands, key=lambda hand: (hand[0][0][0] + jkr if isinstance(hand[0][0], list) else hand[0][0] + jkr, hand[0][0]),reverse=True)
+    hands = sorted(hands, key=lambda hand: (hand[0][0] if isinstance(hand[0][0], list) else hand[0], hand[1][0]),
+                   reverse=True)
 
     hand_types = {str(i): [] for i in range(1, 6)}
     hand_types['full'] = []

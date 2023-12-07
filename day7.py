@@ -36,7 +36,7 @@ def sort_hands(input_hands, part1):
     hand_types['high'] = []
     for hand in hands:
         key = (
-            '5' if hand[0] == [5] else
+            '5' if (hand[0] == [[5]] or hand[0] == [5]) else
             '4' if hand[0] == [4, 1] else
             'full' if hand[0] == [3, 2] else
             '3' if hand[0] == [3, 1, 1] else

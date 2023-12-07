@@ -6,7 +6,7 @@ value2 = dict(zip('J23456789TQKA', range(13)))
 
 def get_input():
     inp = list()
-    with open("input7.txt", "r") as file:
+    with open("C:\\Users\\USER\\PycharmProjects\\AOC2023\\input7.txt", "r") as file:
         for line in file:
             hand, bid = line.strip().split()
             inp.append((hand, int(bid)))
@@ -17,22 +17,18 @@ def sort_hands(input_hands, part1):
     hands = []
     for hand in input_hands:
         if part1:
+            jkr=0
             hands.append([sorted([num for _, num in Counter(hand[0]).most_common()], reverse=True), [value[card] for card in hand[0]], [hand[1]]])
         else:
             if hand[0] == 'JJJJJ':
                 hands.append([[[5]], [1, 1, 1, 1, 1], [hand[1]]])
-            elif 'J' in hand[0]:
+            else:
                 cnt = Counter(hand[0]).most_common()
                 rmv = next((i for i, (card, count) in enumerate(cnt) if card == 'J'), None)
-                jkr = cnt.pop(rmv)[1]
-                srt = [sorted([num for _, num in cnt], reverse=True)]
-                cnt[0] = (cnt[0][0], cnt[0][1] + jkr)
+                jkr = cnt.pop(rmv)[1] if rmv is not None else 0
+                srt = sorted([num for _, num in cnt], reverse=True)
                 hands.append([srt, [value2[card] for card in list(hand[0])], [hand[1]]])
-            else:
-                hands.append([[sorted([num for _, num in Counter(hand[0]).most_common()], reverse=True)],
-                              [value2[card] for card in list(hand[0])], [hand[1]]])
-
-    hands = sorted(hands, key=lambda hand: hand[0][0], reverse=True)
+    hands = sorted(hands, key=lambda hand: (hand[0][0][0] + jkr if isinstance(hand[0][0], list) else hand[0][0] + jkr, hand[0][0]),reverse=True)
 
     hand_types = {str(i): [] for i in range(1, 6)}
     hand_types['full'] = []

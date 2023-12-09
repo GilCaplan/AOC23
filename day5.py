@@ -33,5 +33,5 @@ def convert_category(seed, maps):
     return seed
 
 
-seeds, maps = convert_data("C:\\Users\\USER\\PycharmProjects\\AOC2023\\input5.txt")
+seeds, maps = convert_data("input5.txt")
 print("part1: Lowest Location Number:", find_lowest_location(seeds, maps))

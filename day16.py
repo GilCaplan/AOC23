@@ -31,7 +31,7 @@ scores = []
 for i in range(len(file)):
     for d, y in [(1, 0), (-1, len(file)-1)]:
         grid = [list(line.strip()) for line in file]
-        charged = np.array([list(0 for _ in line) for line in grid])
+        charged = np.zeros_like(grid, dtype=int)
         beam(i, y, *{'\\': (d, 0), '/': (0, -d)}.get(grid[i][y], (0, d)))
         scores.append(np.sum(charged))
 print('part 1 solution:', scores[0], '\npart 2 solution:', max(scores))

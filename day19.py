@@ -1,5 +1,9 @@
-puzzle = [line.strip().split() for line in open("C:\\Users\\USER\\PycharmProjects\\AOC2023\\input19.txt", 'r').readlines()]
-rules, scores, xmas = {}, [], {'x': 0, 'm': 1, 'a': 2, 's': 3}
+from math import prod
+from copy import deepcopy as dp
+puzzle = [line.strip().split() for line in open("input19.txt", 'r').readlines()]
+rules, scores, xmas = {'x': 0, 'm': 1, 'a': 2, 's': 3}, [], {'x': 0, 'm': 1, 'a': 2, 's': 3}
+s = [set(i for i in range(1, 4001)) for _ in range(4)]
+cnt = []
 
 
 def find_nth_appearance(arr, trg, n):
@@ -28,7 +32,28 @@ def checkPiece(line, rules, k):
     return checkPiece(line, rules, keys[len(keys)-1])
 
 
-rules_input, parts_input = open("input19.txt", 'r').read().split("\n\n")
+def part2(key, part):
+    global rules
+    if key == 'A':
+        cnt.append(part)
+        return
+    elif key != 'R':
+        for rule in rules[key]:
+            if len(rule) == 1:
+                part2(rule[0], dp(part))
+            else:
+                field_key, condition, amount, destination = rule
+                current_field = part[field_key]
+                lower, higher = set(range(1, amount + 1)), set(range(amount, 4001))
+                new = current_field - (lower if condition == ">" else higher)
+                part[field_key] = current_field - new
+                new_part = dp(part)
+                new_part[field_key] = new
+                part = dp(part)
+                part2(destination, new_part)
+
+
+rules_input, parts_input = open("C:\\Users\\USER\\PycharmProjects\\AOC2023\\input19.txt", 'r').read().split("\n\n")
 for line in rules_input.split('\n'):
     key, val = line.split('{')
     val = val[:len(val)-1]
@@ -40,3 +65,19 @@ for line in parts_input.split('\n'):
     scores.append(sum(point) if piece == 'A' else 0)
 
 print(sum(scores))
+new_rules = {}
+for line in rules_input.splitlines():
+    key, rule_string = line[:-1].split("{")
+    rules_list = []
+    for rule in rule_string.split(","):
+        if ":" not in rule:
+            rules_list.append(list([rule]))
+        else:
+            rule, destination = rule.split(":")
+            rules_list.append((rule[0], rule[1:2], int(rule[2:]), destination))
+    rules[key] = rules_list
+
+
+part2("in", {s: set(range(1, 4001)) for s in "xmas"})
+print(sum(prod(len(field) for field in part.values()) for part in cnt))
+

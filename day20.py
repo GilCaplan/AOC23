@@ -78,7 +78,15 @@ def run(times, prt=True):
         print(low_pulse * high_pulse)
     else:
         print(lcm(*list(part2.values())))
+        # print(prod(list(part2.values()))) 
+        # because in this case all the cycle numbers are prime numbers anyways
 
 
 run(1000)
 run(4000, False)
+# for part 2 I make the assumption that I find the cycles for the four modules in less than 4000 cycles (button pressed)
+# from the input we can tell that exactly 4 modules [ng, ft, sv, jz] in my puzzle input that go directly to xm module which is a conjunction type, 
+# and that goes to rx which we are looking for.
+# Therefore in order for a single low pulse to be sent to rx, I need to find the cycle number (buttons pressed) for each of these for module conjunctions
+# when they each send a high pulse on the same cycle to - 
+# xm conjunction module => xm sends a single low pulse to rx at the lcm (or in this case prod) of those four seperate cycles

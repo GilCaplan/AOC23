@@ -3,9 +3,7 @@ from math import lcm
 execute = deque([])
 low_pulse, high_pulse = 0, 0
 part2 = {'ng': 1, 'sv': 1, 'ft': 1, 'jz': 1}
-cjj = list(part2.keys())
-
-with open("C:\\Users\\USER\\PycharmProjects\\AOC2023\\input20.txt", 'r') as file:
+with open("input20.txt", 'r') as file:
     input1 = [line.strip().split(' -> ') for line in file]
 
 

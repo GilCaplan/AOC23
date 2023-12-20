@@ -1,6 +1,5 @@
 from collections import deque
 from math import lcm
-# print(((224602011344203//20000) * 16) /3600)
 execute = deque([])
 low_pulse, high_pulse = 0, 0
 part2 = {'ng': 1, 'sv': 1, 'ft': 1, 'jz': 1}
